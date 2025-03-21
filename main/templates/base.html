@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Seller Center{% endblock %}</title>
+    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold text-blue-600">Baakas </a>
+                <div class="space-x-4">
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}" class="text-gray-600 hover:text-blue-600">Login</a>
+                    <a href="{% url 'signup' %}" class="text-gray-600 hover:text-blue-600">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-md mx-auto mt-10 px-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        // OTP input auto-focus
+        function handleOTPInput(e) {
+            if(e.key === "Backspace") {
+                const prev = e.target.previousElementSibling;
+                if(prev) prev.focus();
+            } else if(e.target.value.length === 1) {
+                const next = e.target.nextElementSibling;
+                if(next) next.focus();
+            }
+        }
+    </script>
+</body>
+</html>
